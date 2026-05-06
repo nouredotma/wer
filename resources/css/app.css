@@ -4,8 +4,65 @@
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
+@source '../**/*.vue';
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono: 'Courier New', Courier, monospace;
+}
+
+@layer base {
+    body {
+        @apply antialiased text-gray-900 bg-white font-sans;
+    }
+}
+
+@layer components {
+    .hero-home {
+        @apply relative h-[100svh] w-full flex items-center justify-center bg-cover bg-center;
+    }
+    .hero-page {
+        @apply relative h-[50svh] w-full flex items-center justify-center bg-cover bg-center;
+    }
+    .hero-overlay {
+        @apply absolute inset-0 bg-black/40;
+    }
+    .header-transparent {
+        @apply fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent text-white;
+    }
+    .header-white {
+        @apply fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white text-black shadow-md py-4;
+    }
+}
+
+/* Admin Styles (Now aligned with Shop) */
+.admin-login-body {
+    @apply bg-gray-50 flex items-center justify-center min-h-[100svh];
+}
+.admin-login-card {
+    @apply bg-white p-10 shadow-xl rounded-2xl w-full max-w-md;
+}
+.admin-input {
+    @apply w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-black/5 transition-all;
+}
+.admin-button {
+    @apply w-full bg-black text-white py-3 rounded-lg font-bold tracking-tight hover:bg-gray-800 transition-colors;
+}
+
+/* Sidebar Layout */
+.admin-layout {
+    @apply flex min-h-[100svh];
+}
+.admin-sidebar {
+    @apply w-64 bg-white border-r border-gray-100 p-8 flex flex-col gap-2;
+}
+.admin-content {
+    @apply flex-1 p-12 bg-gray-50/50;
+}
+.admin-nav-link {
+    @apply flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-50 hover:text-black transition-all font-medium;
+}
+.admin-nav-link.active {
+    @apply bg-black text-white hover:bg-black;
 }
