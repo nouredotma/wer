@@ -28,9 +28,6 @@
                 <a href="{{ route('admin.products.index') }}" class="admin-nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
                     <span class="text-sm">Product Inventory</span>
                 </a>
-                <a href="{{ route('admin.categories.index') }}" class="admin-nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                    <span class="text-sm">Categories</span>
-                </a>
                 <a href="{{ route('admin.orders.index') }}" class="admin-nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                     <span class="text-sm">Order History</span>
                 </a>

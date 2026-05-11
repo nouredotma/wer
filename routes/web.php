@@ -12,14 +12,13 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('products');
-Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
+Route::get('/{slug}', [ProductController::class, 'show'])->name('products.show');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [DashboardController::class, 'loginPage'])->name('login');
@@ -35,13 +34,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/products/{id}/edit', [AdminProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{id}', [AdminProductController::class, 'update'])->name('products.update');
         Route::delete('/products/{id}', [AdminProductController::class, 'destroy'])->name('products.destroy');
-
-        Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-        Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-        Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-        Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-        Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
-        Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
         Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');

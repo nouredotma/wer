@@ -11,17 +11,6 @@
             @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 
-        <div>
-            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Category</label>
-            <select name="category_id" class="admin-input" required>
-                <option value="">Select a category</option>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                @endforeach
-            </select>
-            @error('category_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-        </div>
-
         <div class="grid grid-cols-2 gap-6">
             <div>
                 <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Price ($)</label>
@@ -36,9 +25,28 @@
         </div>
 
         <div>
-            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Image URL</label>
-            <input type="url" name="image" value="{{ old('image') }}" class="admin-input" placeholder="https://images.unsplash.com/...">
-            @error('image') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Main Image URL</label>
+            <input type="url" name="main_image" value="{{ old('main_image') }}" class="admin-input" placeholder="https://images.unsplash.com/...">
+            @error('main_image') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+        </div>
+
+        <div>
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Thumbnail Images (comma-separated URLs)</label>
+            <textarea name="thumbnail_images" rows="2" class="admin-input" placeholder="url1, url2, url3...">{{ old('thumbnail_images') }}</textarea>
+            @error('thumbnail_images') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Sizes Available (comma-separated)</label>
+                <input type="text" name="sizes_available" value="{{ old('sizes_available') }}" class="admin-input" placeholder="S, M, L, XL">
+                @error('sizes_available') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Colors Available (comma-separated)</label>
+                <input type="text" name="colors_available" value="{{ old('colors_available') }}" class="admin-input" placeholder="Black, White, Gray">
+                @error('colors_available') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            </div>
         </div>
 
         <div>

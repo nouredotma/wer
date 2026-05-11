@@ -10,9 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()->take(4)->get();
-        $categories = Category::withCount('products')->take(4)->get();
-        return view('shop.home', compact('products', 'categories'));
+        $products = Product::all();
+        return view('shop.home', compact('products'));
     }
 
     public function about()

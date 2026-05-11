@@ -11,7 +11,6 @@
         <thead>
             <tr class="border-b border-gray-100">
                 <th class="pb-4 text-[10px] uppercase tracking-widest text-gray-400 font-bold">Product</th>
-                <th class="pb-4 text-[10px] uppercase tracking-widest text-gray-400 font-bold">Category</th>
                 <th class="pb-4 text-[10px] uppercase tracking-widest text-gray-400 font-bold">Price</th>
                 <th class="pb-4 text-[10px] uppercase tracking-widest text-gray-400 font-bold">Stock</th>
                 <th class="pb-4 text-[10px] uppercase tracking-widest text-gray-400 font-bold">Status</th>
@@ -24,16 +23,13 @@
                 <td class="py-4">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-gray-50 rounded-lg overflow-hidden shrink-0">
-                            <img src="{{ $product->image }}" class="w-full h-full object-cover">
+                            <img src="{{ $product->main_image }}" class="w-full h-full object-cover">
                         </div>
                         <div>
                             <p class="font-bold text-sm tracking-tight">{{ $product->name }}</p>
                             <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">ID: #{{ str_pad($product->id, 4, '0', STR_PAD_LEFT) }}</p>
                         </div>
                     </div>
-                </td>
-                <td class="py-4">
-                    <span class="text-xs font-medium bg-gray-100 px-3 py-1 rounded-full uppercase tracking-widest text-[10px]">{{ $product->category->name }}</span>
                 </td>
                 <td class="py-4">
                     <p class="font-bold text-sm">${{ number_format($product->price, 2) }}</p>

@@ -6,12 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['category_id', 'name', 'slug', 'description', 'price', 'stock', 'image'];
+    protected $fillable = [
+        'name', 
+        'slug', 
+        'description', 
+        'price', 
+        'stock', 
+        'main_image', 
+        'thumbnail_images', 
+        'sizes_available', 
+        'colors_available'
+    ];
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
+    protected $casts = [
+        'thumbnail_images' => 'array',
+        'sizes_available' => 'array',
+        'colors_available' => 'array',
+    ];
 
     public function orderItems()
     {

@@ -13,7 +13,7 @@
                 <p class="text-sm md:text-lg mb-5 font-light text-white/70 max-w-2xl tracking-tighter">
                     Signature hats, heavyweight hoodies, and premium streetwear. Designed in Morocco for the modern world.
                 </p>
-                <a href="{{ route('products') }}"
+                <a href="#products-section"
                     class="group inline-flex items-center gap-8 pl-5 pr-1 py-1 rounded-full bg-white text-black font-light transition-all duration-500 text-base tracking-tight">
                     <span>Explore the Drop</span>
                     <div class="w-11 h-11 bg-black rounded-full flex items-center justify-center overflow-hidden relative">
@@ -68,27 +68,13 @@
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="py-16 section-padding">
+    <!-- Products Section -->
+    <section id="products-section" class="pt-12 section-padding scroll-mt-20">
         <div class="w-full">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-12">
-                @foreach($categories as $index => $category)
-                    @php
-                        // Mapping images c1-c4 based on category order
-                        $bgImage = 'c' . (($index % 4) + 1) . '.png';
-                        
-                        // Custom premium titles based on category name
-                        $titles = [
-                            'Hats' => 'Crown Your Essentials',
-                            'T-shirts' => 'Pure Comfort. Modern Cut.',
-                            'Hoodies' => 'The Heavyweight Standard',
-                            'Pants' => 'Versatile Movement'
-                        ];
-                        $title = $titles[$category->name] ?? 'Explore the Collection';
-                    @endphp
-                    <a href="{{ route('products', ['category' => $category->slug]) }}" 
-                       class="group relative aspect-square overflow-hidden rounded-2xl md:rounded-4xl bg-neutral-100">
-                        <img src="{{ asset('images/' . $bgImage) }}" alt="{{ $category->name }}" 
+                @foreach($products as $index => $product)
+                    <a href="{{ route('products.show', $product->slug) }}" class="group relative aspect-square overflow-hidden rounded-2xl md:rounded-4xl bg-neutral-100">
+                        <img src="{{ $product->main_image }}" alt="{{ $product->name }}" 
                              class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         
                         <!-- Premium Gradient Overlay -->
@@ -97,15 +83,15 @@
                         <!-- Content -->
                         <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 md:p-12 text-white">
                             <span class="text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase mb-2 opacity-70">
-                                {{ $category->name }}
+                                Product
                             </span>
                             <h3 class="text-2xl md:text-5xl font-light mb-4 tracking-tight leading-tight">
-                                {{ $title }}
+                                {{ $product->name }}
                             </h3>
                             
                             <div class="flex justify-center">
                                 <span class="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-[#0a0a0a] text-sm font-bold rounded-full hover:bg-neutral-100 transition-colors">
-                                    Shop now
+                                    View Details
                                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                         <polyline points="12 5 19 12 12 19"></polyline>
@@ -114,36 +100,6 @@
                             </div>
                         </div>
                     </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Products Section -->
-    <section class="py-16 section-padding bg-transparent">
-        <div class="w-full">
-            <div class="flex justify-between items-end mb-10">
-                <div>
-                    <h2 class="text-3xl font-bold mb-2">Featured Products</h2>
-                    <p class="text-gray-500 text-sm">Our most popular items this season</p>
-                </div>
-                <a href="{{ route('products') }}" class="font-semibold text-sm hover:text-gray-600 transition-colors">View
-                    All &rarr;</a>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($products as $product)
-                    <div>
-                        <a href="{{ route('products.show', $product->slug) }}">
-                            <div class="aspect-[3/4] overflow-hidden bg-[#f0f0f0] mb-4 relative rounded-xl">
-                                <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
-                            </div>
-                        </a>
-                        <a href="{{ route('products.show', $product->slug) }}">
-                            <h3 class="font-semibold text-base mb-1">{{ $product->name }}</h3>
-                        </a>
-                        <p class="text-gray-500 text-sm">${{ number_format($product->price, 2) }}</p>
-                    </div>
                 @endforeach
             </div>
         </div>

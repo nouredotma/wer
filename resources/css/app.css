@@ -14,6 +14,9 @@
 }
 
 @layer base {
+    html {
+        scroll-behavior: smooth;
+    }
     body {
         @apply antialiased bg-white font-sans;
         color: var(--color-body);
@@ -204,4 +207,39 @@
     @apply text-white;
     background: var(--color-body);
     &:hover { background: var(--color-body); }
+}
+
+/* Modal Animations */
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(20px) scale(0.98); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+#productModal:not(.hidden) {
+    animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+#productModal:not(.hidden) > div:last-child {
+    animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Custom Scrollbar for Modal */
+#productModal *::-webkit-scrollbar {
+    width: 4px;
+}
+#productModal *::-webkit-scrollbar-track {
+    background: transparent;
+}
+#productModal *::-webkit-scrollbar-thumb {
+    @apply bg-neutral-200 rounded-full;
+}
+
+/* Product Card Refinement */
+.product-card-overlay {
+    @apply absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500;
 }

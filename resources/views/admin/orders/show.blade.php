@@ -9,9 +9,9 @@
             <div class="space-y-4">
                 @foreach($order->items as $item)
                 <div class="flex items-center gap-4 p-4 bg-gray-50/50 rounded-xl">
-                    @if($item->product && $item->product->image)
+                    @if($item->product && $item->product->main_image)
                     <div class="w-16 h-16 bg-white rounded-lg overflow-hidden shrink-0">
-                        <img src="{{ $item->product->image }}" class="w-full h-full object-cover">
+                        <img src="{{ $item->product->main_image }}" class="w-full h-full object-cover">
                     </div>
                     @endif
                     <div class="flex-1">

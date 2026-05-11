@@ -18,7 +18,7 @@
                 <h3 class="text-sm md:text-base font-semibold mb-4 text-white tracking-tight">Navigation</h3>
                 <ul class="space-y-3 text-sm text-white/50 font-light">
                     <li><a href="{{ route('home') }}" class="footer-link"><span class="footer-link-text" data-text="Home">Home</span></a></li>
-                    <li><a href="{{ route('products') }}" class="footer-link"><span class="footer-link-text" data-text="Products">Products</span></a></li>
+                    <li><a href="{{ route('home') }}#products-section" class="footer-link"><span class="footer-link-text" data-text="Products">Products</span></a></li>
                     <li><a href="{{ route('about') }}" class="footer-link"><span class="footer-link-text" data-text="About">About</span></a></li>
                     <li><a href="{{ route('contact') }}" class="footer-link"><span class="footer-link-text" data-text="Contact">Contact</span></a></li>
                 </ul>
@@ -39,10 +39,9 @@
             <div>
                 <h3 class="text-sm md:text-base font-semibold mb-4 text-white tracking-tight">Products</h3>
                 <ul class="space-y-3 text-sm text-white/50 font-light">
-                    <li><a href="{{ route('products') }}" class="footer-link"><span class="footer-link-text" data-text="All Products">All Products</span></a></li>
-                    <li><a href="{{ route('products', ['sort' => 'newest']) }}" class="footer-link"><span class="footer-link-text" data-text="New Arrivals">New Arrivals</span></a></li>
-                    <li><a href="{{ route('products', ['sort' => 'popular']) }}" class="footer-link"><span class="footer-link-text" data-text="Best Sellers">Best Sellers</span></a></li>
-                    <li><a href="{{ route('products', ['sort' => 'price_asc']) }}" class="footer-link"><span class="footer-link-text" data-text="On Sale">On Sale</span></a></li>
+                    @foreach($scrollerProducts as $product)
+                    <li><a href="{{ route('products.show', $product->slug) }}" class="footer-link"><span class="footer-link-text" data-text="{{ $product->name }}">{{ $product->name }}</span></a></li>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -63,8 +62,8 @@
                 <div class="scroller" data-animated="true" data-speed="slow">
                     <div class="scroller__inner">
                         @foreach($scrollerProducts->concat($scrollerProducts)->concat($scrollerProducts) as $product)
-                            <a href="{{ route('products.show', $product->slug) }}" class="block">
-                                <img src="{{ $product->image }}" alt="{{ $product->name }}" class="h-24 md:h-32 aspect-square object-cover rounded-sm">
+                            <a href="{{ route('home') }}#products-section" class="block">
+                                <img src="{{ $product->main_image }}" alt="{{ $product->name }}" class="h-24 md:h-32 aspect-square object-cover rounded-sm">
                             </a>
                         @endforeach
                     </div>

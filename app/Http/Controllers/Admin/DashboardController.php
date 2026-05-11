@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Product;
 use App\Models\Order;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,7 +17,6 @@ class DashboardController extends Controller
             'totalProducts' => Product::count(),
             'totalOrders' => Order::count(),
             'totalRevenue' => Order::sum('total'),
-            'totalCategories' => Category::count(),
             'pendingOrders' => Order::where('status', 'pending')->count(),
             'lowStock' => Product::where('stock', '<', 10)->count(),
         ];
