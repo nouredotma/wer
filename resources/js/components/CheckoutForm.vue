@@ -9,7 +9,7 @@
         <div>
             <h2 class="text-lg font-bold text-[#0a0a0a] mb-8 border-b border-gray-100 pb-4">Order Summary ({{ totalItems }} items)</h2>
             <div class="space-y-6">
-                <div v-for="item in cartItems" :key="item.id" class="flex items-center gap-4 p-4 bg-[#f5f5f7] rounded-xl">
+                <div v-for="item in cartItems" :key="item.id" class="flex items-center gap-4 p-4 bg-[#f0f0f0] rounded-xl">
                     <div class="w-20 h-20 bg-white rounded-lg overflow-hidden shrink-0">
                         <img :src="item.image" :alt="item.name" class="w-full h-full object-cover">
                     </div>

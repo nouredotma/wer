@@ -10,7 +10,7 @@
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
     --color-body: #0a0a0a;
-    --color-surface: #f5f5f7;
+    --color-surface: #f0f0f0;
 }
 
 @layer base {
@@ -31,7 +31,7 @@
         @apply h-[100svh] w-full p-[5px] md:p-[10px];
     }
     .hero-inner {
-        @apply relative w-full h-full overflow-hidden rounded-lg md:rounded-3xl flex items-center justify-center;
+        @apply relative w-full h-full overflow-hidden rounded-lg md:rounded-xl flex items-center justify-center;
         border-bottom-right-radius: 0;
         border: none;
     }
@@ -102,6 +102,65 @@
     .btn-primary {
         @apply bg-[#0a0a0a] text-white py-3 px-6 rounded-lg font-semibold hover:bg-black/80 transition-colors;
     }
+}
+
+/* Infinite Scroller */
+.scroller {
+    max-width: 100%;
+}
+
+.scroller__inner {
+    padding-block: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.scroller[data-animated="true"] {
+    overflow: hidden;
+}
+
+.scroller[data-animated="true"] .scroller__inner {
+    width: max-content;
+    flex-wrap: nowrap;
+    animation: scroll var(--_animation-duration, 60s) var(--_animation-direction, forwards) linear infinite;
+}
+
+.scroller[data-speed="fast"] {
+    --_animation-duration: 30s;
+}
+
+.scroller[data-speed="slow"] {
+    --_animation-duration: 100s;
+}
+
+@keyframes scroll {
+    to {
+        transform: translate(calc(-50% - 0.25rem));
+    }
+}
+
+/* Footer Link Flip Effect */
+.footer-link {
+    @apply relative overflow-hidden inline-block align-bottom;
+}
+
+.footer-link-text {
+    @apply block transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)];
+}
+
+.footer-link-text::before {
+    content: attr(data-text);
+    @apply absolute top-0 left-0 block transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] -translate-y-full text-white;
+}
+
+.footer-link:hover .footer-link-text {
+    @apply translate-y-full;
+}
+
+.link-underline::after {
+    content: "";
+    @apply absolute left-0 bottom-0 w-full h-[2px] bg-white transition-all duration-300;
 }
 
 /* Admin Styles */

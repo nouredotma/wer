@@ -10,14 +10,14 @@
               <h2 class="text-2xl font-bold text-[#0a0a0a]">Your Bag</h2>
               <p class="text-gray-500 text-sm mt-1">{{ cartItems.length }} items selected</p>
           </div>
-          <button @click="closeCart" class="p-2 hover:bg-[#f5f5f7] rounded-full text-gray-400 hover:text-[#0a0a0a] transition-colors">
+          <button @click="closeCart" class="p-2 hover:bg-[#f0f0f0] rounded-full text-gray-400 hover:text-[#0a0a0a] transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
           </button>
       </div>
 
       <div class="flex-1 overflow-y-auto p-8">
           <div v-if="cartItems.length === 0" class="h-full flex flex-col items-center justify-center text-center">
-              <div class="w-16 h-16 bg-[#f5f5f7] rounded-full flex items-center justify-center mb-6 text-gray-400">
+              <div class="w-16 h-16 bg-[#f0f0f0] rounded-full flex items-center justify-center mb-6 text-gray-400">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               </div>
               <p class="text-gray-500 font-semibold mb-6">Your bag is empty</p>
@@ -25,7 +25,7 @@
           </div>
           
           <div v-else class="space-y-6">
-              <div v-for="item in cartItems" :key="item.id" class="flex gap-5 p-4 bg-[#f5f5f7] rounded-xl">
+              <div v-for="item in cartItems" :key="item.id" class="flex gap-5 p-4 bg-[#f0f0f0] rounded-xl">
                   <div class="w-20 h-24 bg-white rounded-lg overflow-hidden shrink-0">
                       <img :src="item.image" class="w-full h-full object-cover" />
                   </div>
