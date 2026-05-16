@@ -1,7 +1,7 @@
 @extends('admin.layout')
 @section('title', 'Add Product')
 @section('content')
-<form action="{{ route('admin.products.store') }}" method="POST" class="max-w-2xl">
+<form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="max-w-2xl">
     @csrf
 
     <div class="space-y-6">
@@ -25,14 +25,14 @@
         </div>
 
         <div>
-            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Main Image URL</label>
-            <input type="url" name="main_image" value="{{ old('main_image') }}" class="admin-input" placeholder="https://images.unsplash.com/...">
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Main Image</label>
+            <input type="file" name="main_image" class="admin-input" accept="image/*">
             @error('main_image') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 
         <div>
-            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Thumbnail Images (comma-separated URLs)</label>
-            <textarea name="thumbnail_images" rows="2" class="admin-input" placeholder="url1, url2, url3...">{{ old('thumbnail_images') }}</textarea>
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Thumbnail Images (Up to 4)</label>
+            <input type="file" name="thumbnail_images[]" multiple class="admin-input" accept="image/*">
             @error('thumbnail_images') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 

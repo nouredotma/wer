@@ -2,12 +2,7 @@
 @section('content')
     <section class="hero-home">
         <div class="hero-inner">
-            <video autoplay muted loop playsinline class="hero-video">
-                <source
-                    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260422_112520_ee819691-f2e8-4c54-bb77-3fb72c84eaa5.mp4"
-                    type="video/mp4">
-            </video>
-            <div class="hero-overlay"></div>
+            <img src="{{ asset('images/hero.png') }}" alt="Hero Background" class="hero-video">
             <div class="absolute bottom-3 md:bottom-9 left-0 z-10 text-left text-white px-3 md:px-9 max-w-5xl">
                 <h1 class="text-2xl md:text-6xl font-light mb-2 tracking-tight">Moroccan Roots. Modern Essentials.</h1>
                 <p class="text-sm md:text-lg mb-5 font-light text-white/70 max-w-2xl tracking-tighter">
@@ -82,12 +77,13 @@
     <!-- Products Section -->
     <section id="products-section" class="pt-12 section-padding scroll-mt-20">
         <div class="w-full">
+            @if($products->count() > 0)
             <div class="grid grid-cols-2 gap-3 md:gap-12">
                 @foreach($products as $index => $product)
                     <a href="{{ route('products.show', $product->slug) }}"
                         class="group relative aspect-square overflow-hidden rounded-xl md:rounded-4xl bg-neutral-100">
                         <img src="{{ $product->main_image }}" alt="{{ $product->name }}"
-                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000">
 
                         <!-- Content -->
                         <div class="absolute inset-0">
@@ -120,7 +116,7 @@
                             </div>
 
                             <!-- Bottom: Name and Price -->
-                            <div class="absolute bottom-3 left-3 right-3 md:bottom-6 md:left-6 md:right-6 flex items-end justify-between text-white">
+                            <div class="absolute bottom-3 left-3 right-3 md:bottom-6 md:left-6 md:right-6 flex items-end justify-between text-[#0a0a0a]">
                                 <h3 class="text-sm md:text-5xl font-light tracking-tight leading-none">{{ $product->name }}</h3>
                                 <div class="text-right shrink-0 leading-none">
                                     <span class="text-xs md:text-3xl font-light tracking-tighter leading-none">{{ number_format($product->price, 2) }} MAD</span>
@@ -130,6 +126,15 @@
                     </a>
                 @endforeach
             </div>
+            @else
+            <div class="flex flex-col items-center justify-center py-20 px-4 text-center">
+                <div class="w-16 h-16 mb-4 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12v0a2 2 0 0 1-2-2V7"/></svg>
+                </div>
+                <h3 class="text-xl md:text-2xl font-light tracking-tight text-neutral-900 mb-2">New collection arriving soon</h3>
+                <p class="text-neutral-500 font-light text-sm max-w-sm">We are currently preparing our next drop. Stay tuned for new releases.</p>
+            </div>
+            @endif
         </div>
     </section>
 

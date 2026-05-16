@@ -18,4 +18,9 @@ class HomeController extends Controller
     {
         return view('shop.about');
     }
+
+    public function support()
+    {
+        return view('shop.support');
+    }
 }

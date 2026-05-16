@@ -69,37 +69,37 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="space-y-1">
                   <label class="text-[10px] font-bold text-neutral-500 ml-1">First Name</label>
-                  <input type="text" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="John">
+                  <input v-model="form.first_name" type="text" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="John">
                 </div>
                 <div class="space-y-1">
                   <label class="text-[10px] font-bold text-neutral-500 ml-1">Last Name</label>
-                  <input type="text" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="Doe">
+                  <input v-model="form.last_name" type="text" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="Doe">
                 </div>
               </div>
 
               <div class="space-y-1">
                 <label class="text-[10px] font-bold text-neutral-500 ml-1">Email Address</label>
-                <input type="email" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="john@example.com">
+                <input v-model="form.email" type="email" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="john@example.com">
               </div>
 
               <div class="space-y-1">
                 <label class="text-[10px] font-bold text-neutral-500 ml-1">Phone Number</label>
-                <input type="tel" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="+212 600 000 000">
+                <input v-model="form.phone" type="tel" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="+212 600 000 000">
               </div>
 
               <div class="space-y-1">
                 <label class="text-[10px] font-bold text-neutral-500 ml-1">Shipping Address</label>
-                <input type="text" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="Street name and number">
+                <input v-model="form.address" type="text" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="Street name and number">
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="space-y-1">
                   <label class="text-[10px] font-bold text-neutral-500 ml-1">City</label>
-                  <input type="text" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="Casablanca">
+                  <input v-model="form.city" type="text" required class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="Casablanca">
                 </div>
                 <div class="space-y-1">
                   <label class="text-[10px] font-bold text-neutral-500 ml-1">Postal Code</label>
-                  <input type="text" class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="20000">
+                  <input v-model="form.zip" type="text" class="w-full px-5 py-3 rounded-xl bg-white border border-neutral-100 outline-none focus:border-black transition-colors" placeholder="20000">
                 </div>
               </div>
 
@@ -114,9 +114,12 @@
                   <p class="text-sm font-bold text-emerald-600">Included</p>
                 </div>
 
-                <button type="submit" class="w-full bg-black text-white py-4 rounded-full font-bold text-base hover:bg-neutral-800 transition-all duration-300">
-                  Complete Purchase — {{ subtotal.toLocaleString() }} MAD
+                <button type="submit" :disabled="isLoading" class="w-full bg-black text-white py-4 rounded-full font-bold text-base hover:bg-neutral-800 transition-all duration-300 disabled:opacity-50">
+                  <span v-if="!isLoading">Complete Purchase — {{ subtotal.toLocaleString() }} MAD</span>
+                  <span v-else>Processing...</span>
                 </button>
+                
+                <p v-if="errorMessage" class="text-red-500 text-xs font-bold text-center mt-2">{{ errorMessage }}</p>
                 
                 <div class="flex items-center justify-center gap-4 text-neutral-300">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
@@ -133,9 +136,22 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
 
 const isOpen = ref(false);
 const cartItems = ref([]);
+const isLoading = ref(false);
+const errorMessage = ref('');
+
+const form = ref({
+  first_name: '',
+  last_name: '',
+  email: '',
+  phone: '',
+  address: '',
+  city: '',
+  zip: ''
+});
 
 const subtotal = computed(() => {
   return cartItems.value.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -168,11 +184,46 @@ const saveCart = () => {
   window.dispatchEvent(new CustomEvent('cart-updated', { detail: cartItems.value }));
 };
 
-const submitOrder = () => {
-  alert('Order Confirmed.');
-  cartItems.value = [];
-  saveCart();
-  closeCart();
+const submitOrder = async () => {
+  if (cartItems.value.length === 0) {
+      errorMessage.value = "Your cart is empty.";
+      return;
+  }
+  
+  isLoading.value = true;
+  errorMessage.value = '';
+
+  try {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    const fullAddress = `${form.value.address}, ${form.value.city}, ${form.value.zip}`;
+    
+    const payload = {
+      customer_name: `${form.value.first_name} ${form.value.last_name}`.trim(),
+      customer_email: form.value.email,
+      customer_phone: form.value.phone,
+      address: fullAddress,
+      items: cartItems.value.map(item => ({ id: item.id, quantity: item.quantity })),
+    };
+
+    const { data } = await axios.post('/checkout', payload, {
+      headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' }
+    });
+
+    if (data.success) {
+        alert(`Order Confirmed! Your Order ID is: #${data.order_id}`);
+        cartItems.value = [];
+        saveCart();
+        closeCart();
+        // Clear form
+        form.value = { first_name: '', last_name: '', email: '', phone: '', address: '', city: '', zip: '' };
+    } else {
+        errorMessage.value = data.message || 'Something went wrong.';
+    }
+  } catch (err) {
+      errorMessage.value = err.response?.data?.message || 'Unable to process your order. Please try again.';
+  } finally {
+      isLoading.value = false;
+  }
 };
 
 onMounted(() => {

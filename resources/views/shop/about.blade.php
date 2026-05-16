@@ -2,15 +2,10 @@
 @section('content')
     <section class="hero-page">
         <div class="hero-inner">
-            <video autoplay muted loop playsinline class="hero-video">
-                <source
-                    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260422_112520_ee819691-f2e8-4c54-bb77-3fb72c84eaa5.mp4"
-                    type="video/mp4">
-            </video>
-            <div class="hero-overlay"></div>
+            <img src="{{ asset('images/hero2.png') }}" alt="Hero Background" class="hero-video">
             <div class="absolute bottom-3 left-0 z-10 text-left text-white px-3 md:px-9 max-w-5xl">
-                <h1 class="text-2xl md:text-5xl font-light mb-1 tracking-tight">About Wer</h1>
-                <p class="text-sm md:text-base mb-5 font-light text-white/70 max-w-2xl tracking-tighter">
+                <h1 class="text-2xl md:text-6xl font-light mb-2 tracking-tight">About Wer</h1>
+                <p class="text-sm md:text-lg mb-5 font-light text-white/70 max-w-2xl tracking-tighter">
                     Redefining modern retail since 2025.
                 </p>
             </div>
@@ -20,17 +15,27 @@
     <section class="py-24 section-padding bg-white">
         <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div class="aspect-square bg-[#f0f0f0] overflow-hidden rounded-2xl border border-gray-100">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2000" alt="Team"
-                    class="w-full h-full object-cover">
+                <img src="/images/about.png" alt="Team" class="w-full h-full object-cover">
             </div>
             <div>
-                <h2 class="text-3xl font-light tracking-tight mb-6">Our Story</h2>
+                <h2 class="text-2xl md:text-5xl font-light tracking-tighter mb-6 text-[#0a0a0a] leading-[1.1]">Our Story</h2>
                 <div class="space-y-4 text-gray-500 leading-relaxed font-light">
-                    <p>At WER, we believe that quality should never be a luxury. We started with a simple idea: create a
-                        marketplace that prioritizes craftsmanship, sustainability, and transparency. Our curated selection
-                        of products is designed for those who value both style and substance.</p>
-                    <p>Every item in our store is handpicked for its unique story and exceptional quality. We partner with
-                        makers and brands that share our commitment to ethical production and timeless design.</p>
+                    <p>wer. didn't start in a boardroom. It started with a frustration —
+                        good clothes that actually fit right, feel right, and last more than
+                        a season were either too expensive, too loud, or just plain boring.
+                        We were tired of settling. So we stopped settling and started building.</p>
+                    <p>The idea was simple from day one: strip everything back. No
+                        oversized logos screaming for attention. No trends chased just to
+                        stay relevant. Just clean silhouettes, quality fabric, and pieces
+                        that feel like they were made for you — because in a way, they were.</p>
+                    <p>Every hoodie, every tee, every pair of pants, every hat we drop
+                        goes through the same question before it ever reaches you — would
+                        we actually wear this? If the answer isn't immediately yes, it
+                        doesn't make the cut. That's not a marketing line, that's just
+                        how we work.</p>
+                    <p>wer. is for the ones who don't need to explain their style.
+                        The ones who move quietly and dress intentionally. We're not
+                        for everyone — and that's exactly the point.</p>
                 </div>
             </div>
         </div>
@@ -38,7 +43,7 @@
 
     <section class="bg-white py-24 section-padding border-t border-gray-50">
         <div class="w-full">
-            <h2 class="text-3xl font-light tracking-tight mb-12 text-center">Why Choose Us?</h2>
+            <h2 class="text-2xl md:text-5xl font-light tracking-tighter mb-12 text-center text-[#0a0a0a] leading-[1.1]">Why Choose Us?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div class="bg-[#f0f0f0] p-8 rounded-2xl border border-gray-100">
                     <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6">
@@ -49,8 +54,9 @@
                             <path d="M3.34 19a10 10 0 1 1 17.32 0" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold mb-3">Curated Quality</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">We don't just sell products; we curate experiences.
+                    <h3 class="text-xl font-light tracking-tight mb-3">Curated Quality</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed font-light">We don't just sell products; we curate
+                        experiences.
                         Every item undergoes rigorous testing to ensure it meets our standards.</p>
                 </div>
                 <div class="bg-[#f0f0f0] p-8 rounded-2xl border border-gray-100">
@@ -63,8 +69,9 @@
                             <circle cx="12" cy="12" r="4" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold mb-3">Ethical Sourcing</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">Transparency is at our core. We work directly with
+                    <h3 class="text-xl font-light tracking-tight mb-3">Ethical Sourcing</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed font-light">Transparency is at our core. We work
+                        directly with
                         artisans and manufacturers who prioritize fair labor and sustainable materials.</p>
                 </div>
                 <div class="bg-[#f0f0f0] p-8 rounded-2xl border border-gray-100">
@@ -78,8 +85,9 @@
                             <path d="m19.07 4.93-14.14 14.14" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold mb-3">Modern Design</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">Minimalism meets functionality. Our products are
+                    <h3 class="text-xl font-light tracking-tight mb-3">Modern Design</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed font-light">Minimalism meets functionality. Our products
+                        are
                         designed to fit seamlessly into the modern, aesthetic lifestyle.</p>
                 </div>
             </div>

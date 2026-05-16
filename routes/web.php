@@ -5,6 +5,7 @@ use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\ContactController;
 use App\Http\Controllers\Shop\NewsletterController;
+use App\Http\Controllers\Shop\CheckoutController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -12,9 +13,11 @@ use App\Http\Controllers\Admin\OrderController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/support', [HomeController::class, 'support'])->name('support');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/{slug}', [ProductController::class, 'show'])->name('products.show');
 
 Route::prefix('admin')->name('admin.')->group(function () {

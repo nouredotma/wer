@@ -1,7 +1,7 @@
 @extends('admin.layout')
 @section('title', 'Edit Product')
 @section('content')
-<form action="{{ route('admin.products.update', $product->id) }}" method="POST" class="max-w-2xl">
+<form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="max-w-2xl">
     @csrf
     @method('PUT')
 
@@ -26,8 +26,8 @@
         </div>
 
         <div>
-            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Main Image URL</label>
-            <input type="url" name="main_image" value="{{ old('main_image', $product->main_image) }}" class="admin-input">
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Main Image</label>
+            <input type="file" name="main_image" class="admin-input" accept="image/*">
             @if($product->main_image)
             <div class="mt-3 w-24 h-24 bg-gray-50 rounded-lg overflow-hidden">
                 <img src="{{ $product->main_image }}" class="w-full h-full object-cover">
@@ -37,8 +37,17 @@
         </div>
 
         <div>
-            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Thumbnail Images (comma-separated URLs)</label>
-            <textarea name="thumbnail_images" rows="2" class="admin-input" placeholder="url1, url2, url3...">{{ old('thumbnail_images', is_array($product->thumbnail_images) ? implode(', ', $product->thumbnail_images) : '') }}</textarea>
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Thumbnail Images (Select up to 4 to replace existing)</label>
+            <input type="file" name="thumbnail_images[]" multiple class="admin-input" accept="image/*">
+            @if($product->thumbnail_images && count($product->thumbnail_images) > 0)
+            <div class="mt-3 flex gap-2">
+                @foreach($product->thumbnail_images as $thumb)
+                <div class="w-16 h-16 bg-gray-50 rounded-lg overflow-hidden">
+                    <img src="{{ $thumb }}" class="w-full h-full object-cover">
+                </div>
+                @endforeach
+            </div>
+            @endif
             @error('thumbnail_images') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 

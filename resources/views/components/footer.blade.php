@@ -28,10 +28,10 @@
             <div>
                 <h3 class="text-sm md:text-base font-semibold mb-4 text-white tracking-tight">Support</h3>
                 <ul class="space-y-3 text-sm text-white/50 font-light">
-                    <li><a href="#" class="footer-link"><span class="footer-link-text" data-text="Shipping & Delivery">Shipping & Delivery</span></a></li>
-                    <li><a href="#" class="footer-link"><span class="footer-link-text" data-text="Return Policy">Return Policy</span></a></li>
-                    <li><a href="#" class="footer-link"><span class="footer-link-text" data-text="Privacy Policy">Privacy Policy</span></a></li>
-                    <li><a href="#" class="footer-link"><span class="footer-link-text" data-text="Terms of Service">Terms of Service</span></a></li>
+                    <li><a href="{{ route('support') }}#shipping-delivery" class="footer-link"><span class="footer-link-text" data-text="Shipping & Delivery">Shipping & Delivery</span></a></li>
+                    <li><a href="{{ route('support') }}#return-policy" class="footer-link"><span class="footer-link-text" data-text="Return Policy">Return Policy</span></a></li>
+                    <li><a href="{{ route('support') }}#privacy-policy" class="footer-link"><span class="footer-link-text" data-text="Privacy Policy">Privacy Policy</span></a></li>
+                    <li><a href="{{ route('support') }}#terms-of-service" class="footer-link"><span class="footer-link-text" data-text="Terms of Service">Terms of Service</span></a></li>
                 </ul>
             </div>
 

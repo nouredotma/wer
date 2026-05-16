@@ -28,18 +28,29 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'nullable|string|max:2000',
-            'main_image' => 'nullable|url|max:500',
-            'thumbnail_images' => 'nullable|string',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'thumbnail_images' => 'nullable|array|max:4',
+            'thumbnail_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'sizes_available' => 'nullable|string',
             'colors_available' => 'nullable|string',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
 
-        // Convert comma-separated strings to arrays
-        if ($request->filled('thumbnail_images')) {
-            $validated['thumbnail_images'] = array_map('trim', explode(',', $request->thumbnail_images));
+        // Handle image uploads
+        if ($request->hasFile('main_image')) {
+            $validated['main_image'] = $request->file('main_image')->store('products', 'public');
         }
+
+        if ($request->hasFile('thumbnail_images')) {
+            $thumbnails = [];
+            foreach ($request->file('thumbnail_images') as $file) {
+                $thumbnails[] = $file->store('products', 'public');
+            }
+            $validated['thumbnail_images'] = $thumbnails;
+        }
+
+        // Convert comma-separated strings to arrays
         if ($request->filled('sizes_available')) {
             $validated['sizes_available'] = array_map('trim', explode(',', $request->sizes_available));
         }
@@ -74,20 +85,35 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'nullable|string|max:2000',
-            'main_image' => 'nullable|url|max:500',
-            'thumbnail_images' => 'nullable|string',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'thumbnail_images' => 'nullable|array|max:4',
+            'thumbnail_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'sizes_available' => 'nullable|string',
             'colors_available' => 'nullable|string',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
 
-        // Convert comma-separated strings to arrays
-        if ($request->filled('thumbnail_images')) {
-            $validated['thumbnail_images'] = array_map('trim', explode(',', $request->thumbnail_images));
+        // Handle image uploads
+        if ($request->hasFile('main_image')) {
+            $validated['main_image'] = $request->file('main_image')->store('products', 'public');
         } else {
-            $validated['thumbnail_images'] = [];
+            // Keep existing main_image if no new file is uploaded
+            $validated['main_image'] = $product->getRawOriginal('main_image');
         }
+
+        if ($request->hasFile('thumbnail_images')) {
+            $thumbnails = [];
+            foreach ($request->file('thumbnail_images') as $file) {
+                $thumbnails[] = $file->store('products', 'public');
+            }
+            $validated['thumbnail_images'] = $thumbnails;
+        } else {
+            // Keep existing thumbnail_images if no new files are uploaded
+            $validated['thumbnail_images'] = json_decode($product->getRawOriginal('thumbnail_images'), true) ?? [];
+        }
+
+        // Convert comma-separated strings to arrays
         if ($request->filled('sizes_available')) {
             $validated['sizes_available'] = array_map('trim', explode(',', $request->sizes_available));
         } else {
